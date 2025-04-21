@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YouTube Spam Detection</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</head>
+<body>
+
+  <div class="heading-container">
+    <h1 class="typing-heading">An Efficient Spam Detection</h1>
+  </div>
+  
+  <div id="app-cover">
+    <div id="app">
+      <form id="spamForm">
+        <div id="f-element">
+          <div id="inp-cover">
+            <i class="fas fa-search search-icon-inside"></i>
+            <input type="text" name="query" id="commentInput" placeholder="Type a YouTube comment..." autocomplete="off" />
+          </div>
+        </div>
+        <button type="submit" class="shadow">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </div>
+    <div id="layer" title="Click the blue area to hide the form"></div>
+    <div id="init">
+      <i class="fas fa-search search-icon-init"></i>
+    </div>
+  </div>
+
+  <!-- Move this UP just before scripts -->
+<div id="result" class="result-box" style="display: none;"></div>
+
+
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+  const app = document.getElementById("app");
+  const layer = document.getElementById("layer");
+  const init = document.getElementById("init");
+  const input = document.querySelector("input");
+  const form = document.getElementById("spamForm");
+  const resultBox = document.getElementById("result");
+
+  // Debugging: Check if elements are correctly referenced
+  console.log(app, layer, init, input, form, resultBox);
+
+  function openApp() {
+    console.log("Opening app...");
+    app.classList.add("opened");
+    input.classList.add("move-up");
+    resultBox.style.display = "none"; // Hide result when opening form
+  }
+
+  function closeApp() {
+    console.log("Closing app...");
+    app.classList.remove("opened");
+    input.classList.remove("move-up");
+    resultBox.style.display = "none"; // Hide result when closing form
+  }
+
+  init.addEventListener("click", openApp);
+  layer.addEventListener("click", closeApp);
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    console.log("Form submitted...");
+
+    const comment = document.getElementById("commentInput").value;
+    console.log("Comment:", comment);
+
+    if (!comment.trim()) {
+      console.log("Comment is empty, skipping fetch...");
+      return;
+    }
+
+    console.log("Sending fetch request...");
+
+    const response = await fetch("http://127.0.0.1:5000/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ comment }),
+    });
+
+    console.log("Fetch response:", response);
+
+    const data = await response.json();
+    console.log("Fetched data:", data);
+
+    resultBox.innerText = `Result: ${data.result.toUpperCase()}`;
+    resultBox.style.display = "block"; // Display result after fetching data
+    
+  });
+});
+
+  </script>
+
+  <script src="static/script.js"></script>
+  <!-- Keep it at the very end -->
+
+</body>
+</html>
+
+</body>
+</html>

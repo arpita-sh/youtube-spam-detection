@@ -1,0 +1,447 @@
+/* Basic reset */
+* {
+  outline: none;
+}
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+  font-family: "'Poppins', sans-serif"; /* Set global font */
+  margin: 0;
+}
+
+/* Custom cursor style */
+body, input {
+  cursor: url(http://k003.kiwi6.com/hotlink/vp054ir5gt/c1.png) 32 32, auto;
+  cursor: -webkit-image-set(url(http://k003.kiwi6.com/hotlink/vp054ir5gt/c1.png) 1x,url(http://k003.kiwi6.com/hotlink/z6fy599487/c2.png) 2x) 32 32, auto;
+}
+
+body:active, input:active {
+  cursor: url(http://k003.kiwi6.com/hotlink/3p6w4icbzt/c1a.png) 32 32, auto;
+  cursor: -webkit-image-set( url(http://k003.kiwi6.com/hotlink/3p6w4icbzt/c1a.png) 1x, url(http://k003.kiwi6.com/hotlink/6ma7828al1/c2a.png) 2x ) 32 32, auto;
+}
+
+/* App container */
+#app-cover {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  width: 434px;
+  margin: -41px auto 0 auto;
+}
+
+/* App button container */
+#app {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  border-radius: 120px;
+  margin: 0 auto;
+  transition: 0.15s ease width;
+  z-index: 2;
+}
+
+form {
+  position: relative;
+  height: 82px;
+  cursor: auto;
+  border-radius: 120px;
+}
+
+/* Input and search icon container */
+#f-element {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  border-radius: 120px;
+}
+
+#inp-cover {
+  position: absolute;
+  top: 0;
+  right: 41px;
+  bottom: 0;
+  left: 0;
+  padding: 0 35px;
+  background-color: #fff;
+}
+
+/* Input field */
+input {
+  display: block;
+  width: 100%;
+  font-size: 19px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #00688a;
+  border: 0;
+  padding: 30px 0;
+  margin: 0;
+  margin-top: 52px;
+  line-height: 1;
+  background-color: transparent;
+  transition: 0.15s ease margin-top;
+  cursor: auto;
+  padding-left: 40px; /* Provide space for the icon */
+}
+
+/* Search icon inside the input field */
+.search-icon-inside {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #1eaddc;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.2s ease;
+}
+
+/* Button styles */
+button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 82px;
+  height: 82px;
+  color: #fff;
+  font-size: 30px;
+  line-height: 1;
+  padding: 26px;
+  margin: 0;
+  border: 0;
+  background-color: #1eaddc;
+  transition: 0.2s ease background-color;
+  border-radius: 50%;
+}
+
+button.shadow {
+  box-shadow: 0 10px 30px #d0d0d0;
+}
+
+button i.fas {
+  display: block;
+  line-height: 1;
+}
+
+h1{
+  font-family: "'Poppins', sans-serif";
+}
+
+/* Layer behind the button */
+#layer {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #1eaddc;
+  transition: 0.9s ease all;
+  z-index: 1;
+}
+
+#layer.sl {
+  transition: 0.3s ease all;
+}
+
+#layer,
+#init {
+  position: fixed;
+  top: 50%;
+  margin: -40px auto 0 auto;
+}
+
+#layer {
+  right: -100px;
+  left: -100px;
+}
+
+#init {
+  right: 0;
+  left: 0;
+  width: 82px;
+  height: 82px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Search icon inside the blue circle */
+.search-icon-init {
+  color: white;
+  font-size: 28px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Transition when app is opened */
+#app.opened {
+  width: 434px;
+  box-shadow: 0 10px 30px #0190bf;
+}
+
+.opened input.move-up {
+  margin-top: 0;
+}
+
+.opened button {
+  color: #1eaddc;
+  background-color: #fff;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+/* Adjust the background layer when the form is open */
+#app.opened + #layer {
+  width: 4000px;
+  height: 4000px;
+  margin-top: -2000px;
+  opacity: 1;
+  z-index: 0;
+}
+
+#app.opened ~ #init {
+  z-index: -1;
+}
+
+
+/* Result box styling */
+#result {
+  margin-top: 20px;  /* Space between search box and result box */
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  color: #73d4ef;
+  text-align: center;
+  position: relative;
+  width: 100%; /* Full width inside the container */
+  max-width: 100%;
+  z-index: 1000;
+  display: none; /* Initially hidden */
+}
+
+/* Add this class to show it */
+#result.show {
+  display: block; /* Show the result box when necessary */
+}
+
+/* Keep the rest of your layout as it is */
+
+
+/* Result box */
+.result-box {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid #69e9c0;
+  border-radius: 5px;
+  display: none; /* Hidden by default */
+  justify-content: flex;
+}
+
+.result-box.show {
+  display: block; /* Show when necessary */
+}
+
+.result-box span {
+  color: #007BFF;
+}
+
+.result-box.error {
+  color: #FF0000;
+}
+
+.heading-container {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+}
+
+.typing-heading {
+  font-size: 2.5rem;
+  font-weight: normal; /* or use a numeric value like 400, depending on your preference */
+  color: #0190bf;
+  font-family: "Didot", serif;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 4px solid rgba(255, 255, 255, 0.75);
+  width: 0;
+  animation: typing 3.5s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
+}
+
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 30ch; /* Adjust to fit text length */
+  }
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+ 
+}
+
+/* ---------- RESPONSIVE STYLING ---------- */
+
+@media screen and (max-width: 768px) {
+  .heading-container {
+    top: 8%;
+  }
+
+  .typing-heading {
+    font-size: 2rem;
+    width: 0;
+    animation: typing 3s steps(25, end) forwards, blink-caret 0.75s step-end infinite;
+  }
+
+  #app-cover {
+    width: 90%;
+  }
+
+  #app.opened {
+    width: 100%;
+  }
+
+  #inp-cover {
+    right: 60px;
+    padding: 0 20px;
+  }
+
+  input {
+    font-size: 16px;
+    padding-left: 35px;
+  }
+
+  .search-icon-inside {
+    font-size: 16px;
+    left: 10px;
+  }
+
+  button {
+    width: 70px;
+    height: 70px;
+    font-size: 24px;
+    padding: 22px;
+  }
+
+  #init {
+    width: 70px;
+    height: 70px;
+  }
+
+  .search-icon-init {
+    font-size: 24px;
+  }
+
+  #result {
+    width: 90%;
+    font-size: 16px;
+    padding: 15px;
+  }
+
+  .result-box {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .typing-heading {
+    font-size: 1.5rem;
+    animation: typing 2.5s steps(20, end) forwards, blink-caret 0.75s step-end infinite;
+  }
+
+  input {
+    font-size: 14px;
+    padding-left: 30px;
+  }
+
+  button {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    padding: 18px;
+  }
+
+  .search-icon-init {
+    font-size: 20px;
+  }
+
+  #inp-cover {
+    right: 50px;
+    padding: 0 15px;
+  }
+
+  #result {
+    font-size: 14px;
+  }
+
+  .result-box {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 360px) {
+  #app-cover {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  #app.opened {
+    width: 100%;
+  }
+
+  #inp-cover {
+    right: 55px;
+    padding: 0 10px;
+  }
+
+  input {
+    font-size: 13px;
+    padding-left: 28px;
+  }
+
+  .search-icon-inside {
+    font-size: 14px;
+    left: 8px;
+  }
+
+  button {
+    width: 55px;
+    height: 55px;
+    font-size: 18px;
+    padding: 16px;
+  }
+
+  #init {
+    width: 55px;
+    height: 55px;
+  }
+
+  .search-icon-init {
+    font-size: 18px;
+  }
+
+  #result {
+    width: 90%;
+    font-size: 13px;
+    padding: 12px;
+  }
+
+  .result-box {
+    font-size: 14px;
+  }
+}
